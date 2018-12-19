@@ -1,3 +1,12 @@
+<?php
+include "database.php";
+?>
+<?php
+//    Create Select query
+$query = "SELECT * FROM shouts";
+$shouts = mysqli_query($connection,$query);
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,15 +24,16 @@
         </header>
         <div id="shouts">
             <ul>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
-                <li class="shout"><span>10:15AM - </span>Saiful: what are you guys up to?</li>
+                <?php
+                    while ($row = mysqli_fetch_assoc($shouts)){?>
+                        <li class="shout"><span><?php echo $row['time']?> - </span><b><?php echo $row['user']?>:</b> <?php echo $row['message']?></li>
+                <?php }?>
             </ul>
         </div>
         <div id="input">
+            <?php if (isset($_GET['error'])){ ?>
+                <div class="error"><?php echo $_GET['error']?></div>
+            <?php }?>
             <form action="process.php" method="post">
                 <input type="text" name="user" placeholder="Enter your name">
                 <input type="text" name="message" placeholder="Enter your message">

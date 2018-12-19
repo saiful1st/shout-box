@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Saiful
- * Date: 18-Dec-18
- * Time: 8:53 AM
- */
+$connection = mysqli_connect("localhost", "root", "","shoutit");
+if (mysqli_connect_errno()){
+    echo "Failed to connect to MySQL. ".mysqli_connect_error();
+}
